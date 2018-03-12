@@ -1,0 +1,24 @@
+<html>
+	
+	<script>
+		
+		var alvo = '11a22b33c';
+		//FORMA DE DEFINIR UMA EXPRESSÃO REGULAR EM JAVASCRIPT
+		//O g SIGNIFICA GLOBAL, EXISTEM OUTRO PARÂMETROS ALÉM DO g
+		//PRECISA FICAR ENTRE / NO COMEÇO E / NO FINAL PARA DEFINIR A REGEX
+		var exp = /(\d\d)(\w)/g;
+		
+		//RETORNA SE A REGEX EXISTE NA STRING
+		console.log(exp.test(alvo));
+
+		//var resultado = null;
+		//while(resultado = exp.exec(alvo)){
+		//	console.log(resultado);
+			//EM QUAL ÍNDICE O REGEX PAROU
+			console.log(exp.lastIndex);
+		//}
+
+
+	</script>
+
+</html>

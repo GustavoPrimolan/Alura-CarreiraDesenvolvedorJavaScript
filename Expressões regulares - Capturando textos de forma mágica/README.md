@@ -1,3 +1,5 @@
+<img src="ExpressoesRegulares.PNG"/>
+
 -------------------------------------------------------------------------
 <h1>Começando com Regex</h1>
 
@@ -1017,3 +1019,175 @@ Pula diretamente para o video que é do seu interesse.
 Para facilitar, utilizaremos sempre o mesmo exemplo de regex: (\d\d)(\w) - dois dígitos e um word char, além de definir dois grupos. O nosso objetivo é executar a regex em cada linguagem, recebendo os grupos e as posições do match.
 
 Mãos à obra!
+
+
+<h2>[JavaScript] Regex com JS</h2>
+
+No mundo JavaScript, temos duas formas de construir uma expressão regular. A primeira é usada através da classe RegExp, como já vimos no nosso script:
+
+var exp = new RegExp("(\\d\\d)(\\w)");
+A segunda forma usa uma expressão literal. Nesse caso, devemos colocar a expressão entre /pattern aqui/, por exemplo:
+
+var exp = /(\d\d)(\w)/;
+A segunda forma deve ser utilizada quando o pattern é constante, e possui um melhor desempenho, pois o navegador já compila a regex na hora de carregar o script.
+
+Flags importantes
+Em ambos os casos podemos combinar a regex com algumas flags, que indicam como aplicar o pattern. Por exemplo, no nosso script sempre usamos a flag g para fazer um match global, no alvo inteiro:
+
+var exp = /(\d\d)(\w)/g;
+Caso quisermos usar o objeto RegExp, é possível aplicar a flag no segundo parâmetro do construtor:
+
+var exp = new RegExp('(\d\d)(\w)', 'g');
+Temos mais duas flags para utilizar: i e m. A flag i significa ignorecase, ou seja, independente de letra maiúscula ou minúscula. A flag m significa multiline, para aplicar a regex linha por linha. Nesse caso, as âncoras ^ e $ selecionam o início e o fim de uma linha, e não da string inteira.
+
+Principais métodos do mundo JavaScript
+Uma vez o objeto regex criado, tanto faz com a classe ou de maneira literal, podemos usufruir dos métodos para encontrar o padrão no alvo.
+
+O primeiro método é o exec, que executa a regex e devolve um array com as informações sobre o match. Por exemplo, vamos definir uma regex com um grupo e chamar o método exec:
+
+var regex = /(\d\d)(\w)/g; //2 dígitos e 1 word char, dois grupos
+var resultado = regex.exec('11a22b33c ');
+O resultado possui as informações sobre primeiro match:
+
+console.log(resultado[0]); //devolve o match inteiro: 11a
+console.log(resultado[1]); //devolve o primeiro grupo: 11
+console.log(resultado[2]); //devolve o segundo grupo a
+console.log(resultado.index); //devolve a posição onde o match começo no alvo: 0
+console.log(regex.lastIndex); //devolve a última posição do match: 3
+Para pegar o próximo match, devemos chamar novamente o método exec:
+
+var resultado = regex.exec('11a22b33c ');
+console.log(resultado[0]); //devolve o match inteiro: 22b
+console.log(resultado[1]); //devolve o primeiro grupo: 22
+console.log(resultado[1]); //devolve o primeiro grupo: b
+console.log(resultado.index); //devolve a posição onde o match começo no alvo: 3
+console.log(regex.lastIndex); //devolve a última posição do match: 6
+Se não há mais nenhum match, o método exec devolve null.
+
+Caso só quisermos saber se há algum match, existe o método test, que devolve um booleano:
+
+console.log(regex.test('11a22b')); //true
+
+<h2>[JavaScript] Uso de expressões regulares</h2>
+Olá, chegou a hora de praticarmos o que aprendemos neste curso com outras linguagens do mercado. No caso do JavaScript, podemos usar o próprio console do navegador para testar nossas expressões.
+
+Abra o console do seu navegador favorito (eu uso Chrome, e você?) e declare a seguinte variável:
+
+var target = "11a22b33c";
+Declaramos a variável target que é o alvo, ou seja, o conteúdo no qual aplicaremos a expressão regular que vimos no vídeo.
+
+Em JavaScript, podemos declarar uma expressão regular de suas maneiras. A primeira forma consiste em criarmos uma instância de RegExp:
+
+Declare-a em seu console:
+
+var exp = new RegExp('(\\d\\d)(\\w)', 'g');
+Veja que RegExp recebe uma string, mas o que a torna verbosa é que precisamos escapar cada \ colocando um barra extra! Além disso, o segundo parâmetro indica que queremos todas as ocorrências encontradas da nossa expressão, não apenas a primeira que encontrar.
+
+Podemos usar a forma literal, menos verbosa, Nela,colocamos nossa expressão entre /:
+
+exp = /(\d\d)(\w)/g;
+Veja que dessa forma não foi necessário colocar, por exemplo, \\d, apenas \d e nem \\w, apenas w. E para testar nossa expressão?
+
+exp.test(target);
+Veja que uma expressão regular criada possui o método test que recebe o alvo no qual ela será aplicada. Ela retornará true apenas se o alvo seguir o padrão da expressão.
+
+Ótimo, mas se quisermos obter como resultado as partes do alvo, que atendem à nossa expressão regular? Nesse caso, usamos o método exec:
+
+exp.exec(target);
+Ela imprimirá no console:
+
+["11a", "11", "a"]
+É um array, no qual o primeiro item é o match, ou seja, a parte do nosso alvo que condiz com nossa expressão. Contudo, precisamos executar mais uma vez nossa expressão para que ele encontre o próximo match. Precisamos fazer até que o resultado final seja null, ou seja, quando não houver mais match:
+
+exp.exec(target);
+    ["22b", "22", "b"]
+exp.exec(target);
+    ["33c", "33", "c"]
+exp.exec(target);
+    null
+Excelente. Contudo, você deve estar se perguntando o que são os outros dois elementos do array. O primeiro já sabemos, que é a parte do target que atendeu nossa expressão regular. Os demais parâmetros equivalem ao padrão que colocamos para cada () da nossa expressão. Usamos dois (), se tivéssemos usando cinco, teríamos no lugar de dois itens, cinco itens.
+
+<h2>[JavaScript] Alterando o formato de uma data</h2>
+
+Temos a seguinte string em JavaScript:
+
+var anoMesDia = '2007-12-31';
+Nossa missão é trocar todos os hífens por uma /. String's em JavaScript são objetos e possuem métodos especiais que aceitam expressões regulares, como é o caso do método replace. Primeiro, vamos criar a expressão que encontra todos os hífens de uma string, inclusive vamos usar a forma literal de declaração:
+
+var exp = /-/g
+Agora, podemos passar para o método replace da nossa string nossa expressão. O método replace recebe uma expressão regular como primeiro parâmetro e o segundo o novo texto que deve substituir todos os lugares que condizerem com a expressão passada. Sendo assim, temos:
+
+anoMesDia = anoMesDia.replace(exp, '/');
+Se imprimirmos o valor de anoMesDia no console do browser, temos como resultado:
+
+'2007/12/31';
+Perfeito! Mas cuidado, se você tivesse omitido o g da expressão, ele trocaria apenas o primeiro hífen.
+
+<h2>[JavaScript] O poder do 'split'</h2>
+Recebemos de um cliente um arquivo que, segundo ele, era para ser um CSV (valores separados por vírgula). Contudo, como nada é perfeito, logo na primeira linha há evidência que foram utilizados vírgula, hífen e ponto e vírgula. Com certeza, nada foi padronizado!
+
+Declare a seguinte string que nos dá um exemplo da situação atual:
+
+var arquivo = '100,200-150,200;20';
+Precisamos em JavaScript extrair todos os valores dessa string para no final somá-los. Para tarefas como essa, há o método split que todo objeto String possui. Nela, podemos passar um separador que ele se encarregará de criar um array com cada item considerando o separador utilizado. Contudo, temos um problema com essa estrutura precária. Vejamos o resultado do split:
+
+var valores = arquivo.split(',');
+Quando imprimimos os valores no console temos:
+
+["100", "200-150", "200;20"]
+Com certeza não é isso que queremos, queremos cada valor em uma posição do array. E agora? A boa notícia é que a função split aceita receber como critério uma expressão regular. Vamos criar uma que consiga o que desejamos:
+
+var exp = /[,;-]/;
+Agora, vamos passar nossa expressão para split:
+
+var exp = /[,;-]/;
+var valores = arquivo.split(exp);
+Quando imprimimos no console os valores temos:
+
+["100", "200", "150", "200", "20"]
+Excelente. Agora o desenvolvedor pode iterar pela lista, convertendo os valores de string para number e totalizar.
+
+<h2>[JavaScript] O retorno de match!</h2>
+Vejamos a seguinte string:
+
+var codigos = 'A121B12112C12212F12G01';
+A variável codigos guarda uma string com vários códigos concatenados. A lei de formação é a seguinte: todo código começa com uma letra seguida de 1 ou mais dígitos. Precisamos extrair essas string num array, ou seja, uma lista de código para que o desenvolvedor possa verificar se cada um desses códigos existe no sistema.
+
+Uma expressão regular que podemos usar para selecionar quem é código é a seguinte:
+
+var exp = /[A-Za-z]\d+/g
+E agora? Como extrair para um array quem segue esse padrão? Toda string em JavaScript possui o método match. Ele aceita uma expressão regular e retorna em um array todas as partes do alvo que atendem a expressão regular. Usando match:
+
+var codigosExtraidos = codigos.match(exp);
+Imprimindo codigosExtraidos temos:
+
+["A121", "B12112", "C12212", "F12", "G01"]
+
+<h2>[JavaScript e HTML]A praticidade do atributo pattern</h2>
+O HTML5 introduziu para as tags input o atributo pattern. Ele recebe como atributo expressões regulares, inclusive, quando o formulário for submetido e o valor digitado pelo usuário não for compatível com a expressão, o próprio navegador exibirá automaticamente uma mensagem para o usuário indicando que o campo é inválido. Mas é importante que o input faça parte de um formulário, caso contrário a validação não será aplicada.
+
+Vamos fazer com que nosso input aceite apenas números:
+
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <title>Testando pattern</title>
+</head>
+<body>
+    <form>
+        <input pattern="[0-9]*">
+        <input type="submit" value="Enviar dados">
+    </form>
+</body>
+Veja que seu conhecimento em expressão regular também pode ser usado para validar formulários!
+
+
+<h2>Para saber mais: Outras ferramentas</h2>
+Existem uma serie de ferramentas sofisticadas na web que você pode utilizar para escrever e analisar a sua regex. Essas ferramentas vão além do nosso "testador" e dão mais dicas sobre a regex criadas.
+
+Seguem dois links interessantes:
+
+http://regexr.com/
+https://regex101.com/
+Vale conferir!
+
