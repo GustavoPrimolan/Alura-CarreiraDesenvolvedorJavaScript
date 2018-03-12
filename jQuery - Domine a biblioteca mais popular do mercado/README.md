@@ -403,7 +403,7 @@ Mas já ao desenvolver um website, é comum utilizarmos a versão de desenvolvim
 
 <h2>Selecionando o jQuery</h2>
 Quais das opções abaixo selecionam corretamente o parágrafo que está no seguinte HTML:
-```
+```html
 <body>
     <h1 id="titulo">Introdução ao Javascript</h1>
     <p id="introducao" class="principal">Javascript é uma das linguagens mais importantes de nosso tempo, 
