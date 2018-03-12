@@ -46,7 +46,7 @@ representação de código JS que dá suporte aos navegadores comuns como o Inte
 
 Esta variedade tornou o desenvolvimento do Javascript algo mais complexo, já que existem pequenas diferenças no seu modo de funcionamento em cada navegador, fazendo com que um código seja completamente funcional em um determinado navegador, mas com um mau funcionamento em outro.
 
-<img src="img/javascript-browsers-diferencas.png"/>
+<img src="imgs/javascript-browsers-diferencas.png"/>
 
 representação de um código JS não funcionando em todos os browsers
 
@@ -57,7 +57,7 @@ Trata-se de uma biblioteca que possuí várias funções de uso bastante comum n
 
 Ele age como um "tradutor", no sentido mais amplo da palavra, tornando o código JavaScript que era incompatível para certos navegadores em um código JavaScript funcional na maioria deles:
 
-<img src="img/jquery-browsers.png"/>
+<img src="imgs/jquery-browsers.png"/>
 
 representação de que o código jQuery é compatível com diferentes browsers, incluindo mobile
 
@@ -403,11 +403,10 @@ Mas já ao desenvolver um website, é comum utilizarmos a versão de desenvolvim
 
 <h2>Selecionando o jQuery</h2>
 Quais das opções abaixo selecionam corretamente o parágrafo que está no seguinte HTML:
-<code>
+```
 <body>
     <h1 id="titulo">Introdução ao Javascript</h1>
     <p id="introducao" class="principal">Javascript é uma das linguagens mais importantes de nosso tempo, 
 justamente por ser entendida pelos mais diversos navegadores (desktop/mobile).</p>
 </body>
-</code>
-
+```
